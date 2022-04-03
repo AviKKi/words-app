@@ -21,7 +21,7 @@ afterAll(async () => {
     await disconnect()
 })
 
-it.skip('POST /api/words/ - should create a new word', async () => {
+it('POST /api/words/ - should create a new word', async () => {
     const res = await supertest(app)
         .post("/api/words/")
         .send({ word: "apple" })

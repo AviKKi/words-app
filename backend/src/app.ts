@@ -2,6 +2,7 @@ const envPath = process.env.NODE_ENV === "development" ? ".local.env" : ".env"
 require('dotenv').config({ path: envPath })
 import * as express from 'express'
 import { json as jsonBodyParser } from 'body-parser'
+import Word from './models/word.model'
 const app = express()
 app.use(jsonBodyParser())
 app.set('port', 8000)
@@ -14,22 +15,28 @@ app.get("/", (req, res) => {
 // or <app_name>/router+controller
 
 // Create a word
-app.post("/api/words/", (req, res)=>{
-    
+app.post("/api/words/", async (req, res) => {
+    const { word } = req.body
+    if (!word) {
+        res.status(400).json({ word: "word is required!" })
+        return
+    }
+    const w = await Word.create({ word })
+    res.status(201).json(w)
 })
 
 // Return list of all the words
-app.get("/api/words/", (req, res)=>{
+app.get("/api/words/", (req, res) => {
 
 })
 
 // Delete a word with ID
-app.delete("/api/words/:id/", (req, res)=>{
+app.delete("/api/words/:id/", (req, res) => {
 
 })
 
 // update a word with ID
-app.put("/api/words/:id/", (req, res)=>{
+app.put("/api/words/:id/", (req, res) => {
 
 })
 
