@@ -33,15 +33,15 @@ it('POST /api/words/ - should create a new word', async () => {
     expect(words[0]['word']).to.be.equal("apple")
 })
 
-it.skip('GET /api/words/ - should return a list of words', async () => {
+it('GET /api/words/ - should return a list of words', async () => {
     await Word.create({ word: "apple" })
     await Word.create({ word: "grapes" })
     await Word.create({ word: "oranges" })
     const res = await supertest(app).get('/api/words/').expect(200)
     expect(res.body).to.be.a('array')
     expect(res.body).to.be.lengthOf(3)
-    const resWords = res.map(w => w.word)
-    expect(res.body).to.have.all.members(["apple", "grapes", "oranges"])
+    const resWords = res.body.map(w => w.word)
+    expect(resWords).to.have.all.members(["apple", "grapes", "oranges"])
 })
 
 
