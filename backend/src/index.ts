@@ -7,3 +7,5 @@ connectMongo().then(() => {
         () => console.log(`listening on the port ${app.port}`)
     )
 })
+
+export default app
