@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import Spinner from "./components/Spinner";
 import WordCard from "./components/WordCard";
 import useWords from "./hooks/useWords";
 
 function App() {
-  const { words, create } = useWords();
+  const { words, create, isLoading } = useWords();
   const [input, setInput] = useState("");
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInput(e.target.value);
@@ -29,8 +30,11 @@ function App() {
         </button>
       </div>
       <div className="mt-4 flex flex-col w-2/3 max-w-xs">
+        {isLoading > 0 && <Spinner /> }
         {words.map((word) => (
-          <WordCard key={word._id} word={word}>{word.word}</WordCard>
+          <WordCard key={word._id} word={word}>
+            {word.word}
+          </WordCard>
         ))}
       </div>
     </div>
