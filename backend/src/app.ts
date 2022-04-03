@@ -26,8 +26,9 @@ app.post("/api/words/", async (req, res) => {
 })
 
 // Return list of all the words
-app.get("/api/words/", (req, res) => {
-
+app.get("/api/words/", async (req, res) => {
+    const words = await Word.find({})
+    res.json(words.map(w => w.toJSON()))
 })
 
 // Delete a word with ID
