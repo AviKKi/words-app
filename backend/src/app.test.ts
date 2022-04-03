@@ -45,7 +45,7 @@ it('GET /api/words/ - should return a list of words', async () => {
 })
 
 
-it.skip("PUT /api/words/:id - should update a word given it's id", async () => {
+it("PUT /api/words/:id - should update a word given it's id", async () => {
     const word = await Word.create({ word: "apple" })
     const res = await supertest(app)
         .put(`/api/words/${word._id}`)
@@ -53,9 +53,9 @@ it.skip("PUT /api/words/:id - should update a word given it's id", async () => {
         .expect(200)
     expect(res.body).to.have.any.keys("word")
     expect(res.body).to.have.any.keys("_id")
-    expect(res.body._id).to.be.equal(word._id)
-    const updatedWord = await Word.find({ _id: word._id })
-    expect(updatedWord).to.be.equal("grapes")
+    expect(res.body._id).to.be.equal(String(word._id))
+    const updatedWord = await Word.findOne({ _id: word._id })
+    expect(updatedWord.word).to.be.equal("grapes")
 })
 
 it("delete /api/words/:id - delete a word, given it's ID", async () => {
