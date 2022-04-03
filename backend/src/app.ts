@@ -1,3 +1,5 @@
+const envPath = process.env.NODE_ENV === "development" ? ".local.env" : ".env"
+require('dotenv').config({ path: envPath })
 import * as express from 'express'
 import { json as jsonBodyParser } from 'body-parser'
 const app = express()
