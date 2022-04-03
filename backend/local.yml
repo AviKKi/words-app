@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+  words-node:
+    build:
+      context: .
+      dockerfile: local.Dockerfile
+    volumes:
+      - .:/src/
+    command: sh -c "npm install && npm run dev"
+    ports:
+      - 8000:8000
+  words-mongo:
+    image: "mongo"
+    ports:
+      - "27017:27017"
