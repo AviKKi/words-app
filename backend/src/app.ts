@@ -5,7 +5,7 @@ import * as cors from 'cors'
 import { json as jsonBodyParser } from 'body-parser'
 import Word from './models/word.model'
 const app = express()
-app.use(cors())
+app.use(cors({ origin: true }))
 app.options('*', cors())
 app.use(jsonBodyParser())
 app.set('port', 8000)
