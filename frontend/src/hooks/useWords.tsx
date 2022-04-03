@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { setConstantValue } from "typescript";
 import API from "../api";
 
-interface Word {
+export interface Word {
   _id: string;
   word: string;
 }

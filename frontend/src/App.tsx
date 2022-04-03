@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import WordCard from "./components/WordCard";
 import useWords from "./hooks/useWords";
 
 function App() {
@@ -17,18 +18,19 @@ function App() {
         <input
           className="px-2 py-2 mr-3"
           value={input}
+          placeholder="Enter a word"
           onChange={handleInputChange}
         />
         <button
-          className="border-2 border-indigo-700 px-2 py-2 rounded-md"
+          className="border-2 border-sky-500 px-5 py-2 rounded-md"
           onClick={handleWordAdd}
         >
           Add
         </button>
       </div>
-      <div>
+      <div className="mt-4 flex flex-col w-2/3 max-w-xs">
         {words.map((word) => (
-          <div key={word._id}>{word.word}</div>
+          <WordCard key={word._id} word={word}>{word.word}</WordCard>
         ))}
       </div>
     </div>
