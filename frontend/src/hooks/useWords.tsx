@@ -12,17 +12,17 @@ export default function useWords() {
   const [isCreating, setIsCreating] = useState(false);
   const [words, setWords] = useState<Word[]>([]);
   async function list() {
-    setIsCreating(true);
+    setLoading((l) => l + 1);
     const list = await API.list();
     setWords(list);
-    setIsCreating(false);
+    setLoading((l) => l - 1);
   }
 
   async function create(word: string) {
-    setLoading((l) => l + 1);
+    setIsCreating(true);
     const newWord = await API.create(word);
     setWords([...words, newWord]);
-    setLoading((l) => l - 1);
+    setIsCreating(false);
   }
 
   useEffect(() => {
