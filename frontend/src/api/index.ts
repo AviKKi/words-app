@@ -10,12 +10,12 @@ const API = {
         return await res.json()
     },
     delete: async (id: string) => {
-        const res = await fetch(`${BASE_URL}/api/words/`, { method: 'DELETE', headers })
+        const res = await fetch(`${BASE_URL}/api/words/${id}`, { method: 'DELETE', headers })
         return await res.json()
     },
     update: async (id: string, word: string) => {
         const res = await fetch(
-            `${BASE_URL}/api/words/`,
+            `${BASE_URL}/api/words/${id}`,
             {
                 method: 'PUT',
                 body: JSON.stringify({ word }),
