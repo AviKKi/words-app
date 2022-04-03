@@ -1,22 +1,29 @@
 import { Word } from "../hooks/useWords";
 import { FiX, FiEdit3 } from "react-icons/fi";
 import React, { useState } from "react";
+import { updateSourceFile } from "typescript";
 interface WordCardProps {
   word: Word;
   children: React.ReactNode;
   deleteWord: (id: string) => void;
+  update: (id: string, word: string) => void;
 }
 
 export default function WordCard({
   word,
   deleteWord,
+  update,
   ...props
 }: WordCardProps) {
   const [value, setValue] = useState(word.word);
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
-  const handleUpdate = () => {};
+  
+  const handleUpdate = () => {
+    update(word._id, value);
+  };
+
   const handleDelete = () => {
     deleteWord(word._id);
   };

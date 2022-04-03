@@ -12,6 +12,7 @@ export default function useWords() {
   const [isCreating, setIsCreating] = useState(false);
   const [words, setWords] = useState<Word[]>([]);
   const [isRemoving, setIsRemoving] = useState<string[]>([]);
+  const [isUpdating, setIsUpdating] = useState<string[]>([]);
 
   async function list() {
     setLoading((l) => l + 1);
@@ -34,9 +35,15 @@ export default function useWords() {
     } catch (err) {}
     setWords(words.filter((w) => w._id !== id));
   }
-
+  async function update(id: string, word: string) {
+    setIsUpdating([...isUpdating, id]);
+    try {
+      await API.update(id, word);
+    } catch (err) {}
+    setIsUpdating(isUpdating.filter((x) => x !== id));
+  }
   useEffect(() => {
     list();
   }, []);
-  return { isLoading, words, create, isCreating, deleteWord, isRemoving };
+  return { isLoading, words, create, isCreating, deleteWord, isRemoving, update, isUpdating };
 }

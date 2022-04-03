@@ -4,7 +4,7 @@ import WordCard from "./components/WordCard";
 import useWords from "./hooks/useWords";
 
 function App() {
-  const { words, create, isLoading, deleteWord } = useWords();
+  const { words, create, isLoading, deleteWord, update } = useWords();
   const [input, setInput] = useState("");
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInput(e.target.value);
@@ -32,7 +32,7 @@ function App() {
       <div className="mt-4 flex flex-col w-2/3 max-w-xs">
         {isLoading > 0 && <Spinner /> }
         {words.map((word) => (
-          <WordCard deleteWord={deleteWord} key={word._id} word={word}>
+          <WordCard update={update} deleteWord={deleteWord} key={word._id} word={word}>
             {word.word}
           </WordCard>
         ))}
