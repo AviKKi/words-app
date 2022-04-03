@@ -32,8 +32,10 @@ app.get("/api/words/", async (req, res) => {
 })
 
 // Delete a word with ID
-app.delete("/api/words/:id/", (req, res) => {
-
+app.delete("/api/words/:id/", async (req, res) => {
+    const { id } = req.params
+    await Word.deleteOne({ _id: id })
+    res.json({})
 })
 
 // update a word with ID

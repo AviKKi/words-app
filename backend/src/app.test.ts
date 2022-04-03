@@ -58,7 +58,7 @@ it.skip("PUT /api/words/:id - should update a word given it's id", async () => {
     expect(updatedWord).to.be.equal("grapes")
 })
 
-it.skip("delete /api/words/:id - delete a word, given it's ID", async () => {
+it("delete /api/words/:id - delete a word, given it's ID", async () => {
     const word = await Word.create({ word: "apple" })
     const res = await supertest(app)
         .delete(`/api/words/${word._id}`)
