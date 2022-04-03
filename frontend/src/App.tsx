@@ -1,24 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import useWords from "./hooks/useWords";
 
 function App() {
+  const { words, create } = useWords();
+  const [input, setInput] = useState("");
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setInput(e.target.value);
+
+  const handleWordAdd = () => {
+    create(input);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="flex flex-col items-center mt-10 w-screen min-h-screen rounded-md">
+      <div>
+        <input
+          className="px-2 py-2 mr-3"
+          value={input}
+          onChange={handleInputChange}
+        />
+        <button
+          className="border-2 border-indigo-700 px-2 py-2 rounded-md"
+          onClick={handleWordAdd}
         >
-          Learn React
-        </a>
-      </header>
+          Add
+        </button>
+      </div>
+      <div>
+        {words.map((word) => (
+          <div key={word._id}>{word.word}</div>
+        ))}
+      </div>
     </div>
   );
 }

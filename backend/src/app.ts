@@ -1,11 +1,16 @@
 const envPath = process.env.NODE_ENV === "development" ? ".local.env" : ".env"
 require('dotenv').config({ path: envPath })
 import * as express from 'express'
+import * as cors from 'cors'
 import { json as jsonBodyParser } from 'body-parser'
 import Word from './models/word.model'
 const app = express()
+app.use(cors())
+app.options('*', cors())
 app.use(jsonBodyParser())
 app.set('port', 8000)
+
+
 
 app.get("/", (req, res) => {
     res.json({ "msg": "hello" })

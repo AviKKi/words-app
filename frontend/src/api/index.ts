@@ -1,12 +1,16 @@
 const BASE_URL = process.env.NODE_ENV === "development" ? "http://localhost:8000" : ""
 
+const headers = {
+    'content-type': 'application/json'
+}
+
 const API = {
     list: async () => {
-        const res = await fetch(`${BASE_URL}/api/words`)
+        const res = await fetch(`${BASE_URL}/api/words`, { headers })
         return await res.json()
     },
     delete: async (id: string) => {
-        const res = await fetch(`${BASE_URL}/api/words/`, { method: 'DELETE' })
+        const res = await fetch(`${BASE_URL}/api/words/`, { method: 'DELETE', headers })
         return await res.json()
     },
     update: async (id: string, word: string) => {
@@ -14,7 +18,8 @@ const API = {
             `${BASE_URL}/api/words/`,
             {
                 method: 'PUT',
-                body: JSON.stringify({ word })
+                body: JSON.stringify({ word }),
+                headers,
             })
         return await res.json()
     },
@@ -23,7 +28,8 @@ const API = {
             `${BASE_URL}/api/words/`,
             {
                 method: 'POST',
-                body: JSON.stringify({ word })
+                body: JSON.stringify({ word }),
+                headers,
             })
         return await res.json()
     }
