@@ -11,3 +11,9 @@ Solution consist of
     - Reat
     - Typescript
     - Tailwind
+
+### Features
+- Add a word
+- Delete a word
+- Update a word
+- List all the words
