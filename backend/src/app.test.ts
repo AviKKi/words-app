@@ -21,7 +21,7 @@ afterAll(async () => {
     await disconnect()
 })
 
-it('POST /api/words/ - should create a new word', async () => {
+it.skip('POST /api/words/ - should create a new word', async () => {
     const res = await supertest(app)
         .post("/api/words/")
         .send({ word: "apple" })
@@ -31,4 +31,38 @@ it('POST /api/words/ - should create a new word', async () => {
     const words = await Word.find({})
     expect(words).to.be.lengthOf(1)
     expect(words[0]['word']).to.be.equal("apple")
+})
+
+it.skip('GET /api/words/ - should return a list of words', async () => {
+    await Word.create({ word: "apple" })
+    await Word.create({ word: "grapes" })
+    await Word.create({ word: "oranges" })
+    const res = await supertest(app).get('/api/words/').expect(200)
+    expect(res.body).to.be.a('array')
+    expect(res.body).to.be.lengthOf(3)
+    const resWords = res.map(w => w.word)
+    expect(res.body).to.have.all.members(["apple", "grapes", "oranges"])
+})
+
+
+it.skip("PUT /api/words/:id - should update a word given it's id", async () => {
+    const word = await Word.create({ word: "apple" })
+    const res = await supertest(app)
+        .put(`/api/words/${word._id}`)
+        .send({ word: "grapes" })
+        .expect(200)
+    expect(res.body).to.have.any.keys("word")
+    expect(res.body).to.have.any.keys("_id")
+    expect(res.body._id).to.be.equal(word._id)
+    const updatedWord = await Word.find({ _id: word._id })
+    expect(updatedWord).to.be.equal("grapes")
+})
+
+it.skip("delete /api/words/:id - delete a word, given it's ID", async () => {
+    const word = await Word.create({ word: "apple" })
+    const res = await supertest(app)
+        .delete(`/api/words/${word._id}`)
+        .send({ word: "grapes" })
+    const count = await Word.find().count()
+    expect(count).to.be.equal(0)
 })
