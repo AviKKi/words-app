@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NODE_ENV === "development" ? "http://localhost:8000" : ""
+const BASE_URL = process.env.NODE_ENV === "development" ? "http://localhost:8000" : "https://api.incubyte.unnwhiteboard.com"
 
 const headers = {
     'content-type': 'application/json'
