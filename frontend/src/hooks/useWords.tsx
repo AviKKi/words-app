@@ -29,7 +29,10 @@ export default function useWords() {
 
   async function deleteWord(id: string) {
     setIsRemoving([...isRemoving, id]);
-    await API.delete(id);
+    try {
+      await API.delete(id);
+    } catch (err) {}
+    setWords(words.filter((w) => w._id !== id));
   }
 
   useEffect(() => {
