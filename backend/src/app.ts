@@ -39,8 +39,15 @@ app.delete("/api/words/:id/", async (req, res) => {
 })
 
 // update a word with ID
-app.put("/api/words/:id/", (req, res) => {
-
+app.put("/api/words/:id/", async (req, res) => {
+    const { id } = req.params
+    const { word } = req.body
+    if (!word) {
+        res.status(400).json({ word: "word is required!" })
+        return
+    }
+    await Word.updateOne({ _id: id }, { word })
+    res.json({ _id: id, word })
 })
 
 export default app
